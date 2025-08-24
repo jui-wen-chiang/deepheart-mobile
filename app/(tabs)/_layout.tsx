@@ -7,9 +7,28 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { tabsScreenProps } from '@/types/app/tabs'
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+
+  const tabsScreenList: Array<tabsScreenProps> = [
+    {
+      name: 'index',
+      title: 'Home',
+      iconName: 'house.fill'
+    },
+    {
+      name: 'explore',
+      title: 'Explore',
+      iconName: 'paperplane.fill'
+    },
+    {
+      name: 'test',
+      title: 'Test',
+      iconName: 'paperplane.fill'
+    },
+  ]
 
   return (
     <Tabs
@@ -26,20 +45,17 @@ export default function TabLayout() {
           default: {},
         }),
       }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      {tabsScreenList.map((item, index) => {
+        return (
+          <Tabs.Screen
+            name={item.name}
+            options={{
+              title: item.title,
+              tabBarIcon: ({ color }) => <IconSymbol size={28} name={item.iconName} color={color} />,
+            }}
+          />
+        )
+      })}
     </Tabs>
   );
 }
